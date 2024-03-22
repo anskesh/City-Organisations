@@ -1,9 +1,8 @@
-﻿<Application x:Class="CityOrganisations.App"
+﻿<prism:PrismApplication x:Class="CityOrganisations.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CityOrganisations"
-             StartupUri="/MVVM/Views/MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>
+             xmlns:prism="http://prismlibrary.com/">
+    <prism:PrismApplication.Resources>
+    </prism:PrismApplication.Resources>
+</prism:PrismApplication>
