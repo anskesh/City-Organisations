@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Prism.Regions;
 
 namespace CityOrganisations.Views
 {

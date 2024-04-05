@@ -19,7 +19,10 @@ namespace CityOrganisations
     /// </summary>
     public partial class App : PrismApplication
     {
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) {}
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterForNavigation<HomePage>(nameof(HomePage));
+        }
 
         protected override Window CreateShell()
         {
