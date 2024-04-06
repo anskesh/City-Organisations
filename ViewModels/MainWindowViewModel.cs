@@ -6,14 +6,6 @@ namespace CityOrganisations.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-        private readonly IRegionManager _regionManager;
-
-        public MainWindowViewModel(IRegionManager regionManager)
-        {
-            _regionManager = regionManager;
-            _regionManager.RequestNavigate("HomeRegion", nameof(HomePage));
-        }
-        
         public string Title
         {
             get => _title;
@@ -21,5 +13,16 @@ namespace CityOrganisations.ViewModels
         }
         
         private string _title = "City organizations";
+        private readonly IRegionManager _regionManager;
+
+        public MainWindowViewModel(IRegionManager regionManager)
+        {
+            _regionManager = regionManager;
+            
+            _regionManager.RegisterViewWithRegion(RegionNames.BranchesRegion, typeof(BranchesPage));
+            _regionManager.RegisterViewWithRegion(RegionNames.HomeRegion, typeof(HomePage));
+            _regionManager.RegisterViewWithRegion(RegionNames.OrganizationsRegion, typeof(OrganizationsPage));
+            _regionManager.RegisterViewWithRegion(RegionNames.RegistersRegion, typeof(RegistersPage));
+        }
     }
 }
