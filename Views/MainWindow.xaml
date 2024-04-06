@@ -6,15 +6,13 @@
         xmlns:local="clr-namespace:CityOrganisations.Views"
         xmlns:prism="http://prismlibrary.com/"
         mc:Ignorable="d"
-        d:DataContext="{d:DesignInstance local:MainWindow}"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="450" Width="800">
     <Grid>
         <TabControl>
             <TabItem Header="Главная">
-                <Frame Source="HomePage.xaml">
-                </Frame>
-            </TabItem>
+                <Frame Source="HomePage.xaml" Height="auto" />
+			</TabItem>
             <TabItem Header="Филиалы">
                 <Frame Source="BranchesPage.xaml">
                 </Frame>

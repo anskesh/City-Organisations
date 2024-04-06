@@ -7,7 +7,7 @@
       xmlns:mvvm="http://prismlibrary.com/"
       mc:Ignorable="d"
       mvvm:ViewModelLocator.AutoWireViewModel="True"
-      Title="MainTabPage" Height="450" Width="800">
+      Title="MainTabPage" Height="auto" Width="auto">
     <Grid>
     </Grid>
 </Page>
