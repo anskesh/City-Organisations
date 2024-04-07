@@ -6,9 +6,30 @@
                 <ColumnDefinition  Width="155"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-                
+
             <Label Margin="0 0 15 0" Content="{Binding Path=LabelText}"></Label>
             <TextBox Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Text="{Binding Path=TextBoxText}"></TextBox>
         </Grid>
     </DataTemplate>
+
+    <Style TargetType="ListBoxItem" x:Key="CustomListBoxItemStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Border" Padding="5" Margin="2">
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="Honeydew" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="LightGreen" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>
