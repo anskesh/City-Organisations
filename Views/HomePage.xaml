@@ -15,20 +15,9 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Border x:Name="FilialBorder" BorderBrush="Black" BorderThickness="1" Margin="10" Grid.Column="1" Width="350" HorizontalAlignment="Right">
-            <StackPanel Margin="-1,0,0,0">
-                <DockPanel>
-                    <TextBlock Text=" Филиалы города" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
-                    <Button Content="   Фильтр   " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
-                </DockPanel>
-                <ListBox ItemsSource="{Binding Path=AllBranches}" 
-                         Height="{Binding ActualHeight, ElementName=FilialBorder}" 
-                         Width="{Binding ActualWidth, ElementName=FilialBorder}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource CustomListBoxItemStyle}" />
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-            </StackPanel>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="10" Grid.Column="0">
+            <Image Source="/CityOrganisations;component/Images/CityMap.png" Stretch="UniformToFill"/>
         </Border>
+        <ContentControl Content="{StaticResource FilialBorderResource}" Grid.Column="1"/>
     </Grid>
 </Page>

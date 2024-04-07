@@ -18,10 +18,10 @@ namespace CityOrganisations.ViewModels
             var organization1 = new OrganizationModel("ЧГУ");
             var organization2 = new OrganizationModel("Магнит");
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 organization1.Branches.Add(new BranchModel($"Филиал {i + 1}"));
-                organization2.Branches.Add(new BranchModel($"Филиал {i + 11}"));
+                organization2.Branches.Add(new BranchModel($"Филиал {i + 21}"));
             }
 
             Organizations.Add(organization1);
@@ -34,14 +34,14 @@ namespace CityOrganisations.ViewModels
             {
                 foreach (var branch in organization.Branches)
                 {
-                    yield return $"{organization.OrganizationName} {branch.Name}";
+                    yield return $"{organization.Name} {branch.Name}";
                 }
             }
         }
 
         public IEnumerable<string> AllBranches
         {
-            get { return _allBranches ?? (_allBranches = GetAllBranches()); }
+            get { return _allBranches ??= GetAllBranches(); }
         }
     }
 }

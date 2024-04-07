@@ -13,26 +13,26 @@
             <ColumnDefinition Width="6*"></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        
+
         <Border BorderBrush="Black" BorderThickness="1" Margin="10">
             <Grid Margin="5" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                
+
                 <Grid Grid.Row="0" x:Name="Controls" HorizontalAlignment="Stretch" Height="25" Margin="0 0 0 10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Label Grid.Column="0" Content="{Binding Branch.Name}"></Label>
                     <Button Grid.Column="1" Content="Добавить" Margin="0 0 10 0" Padding="2"></Button>
                     <Button Grid.Column="2" Content="Редактировать" Padding="2"></Button>
                 </Grid>
-                
+
                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding Path=Branch.Information}"
                              ItemTemplate="{StaticResource EditableDescriptionItem}" 
@@ -41,5 +41,6 @@
                 </ScrollViewer>
             </Grid>
         </Border>
+        <ContentControl Content="{StaticResource FilialBorderResource}" Grid.Column="1"/>
     </Grid>
 </Page>

@@ -9,6 +9,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Images\CityMap.png" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Prism.Core" Version="8.1.97" />
       <PackageReference Include="Prism.Unity" Version="8.1.97" />
       <PackageReference Include="Prism.Wpf" Version="8.1.97" />
@@ -31,6 +35,10 @@
       <Reference Include="Prism.Unity.Wpf">
         <HintPath>C:\Users\laim207\.nuget\packages\prism.unity\8.1.97\lib\net5.0-windows7.0\Prism.Unity.Wpf.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Images\CityMap.png" />
     </ItemGroup>
 
 </Project>

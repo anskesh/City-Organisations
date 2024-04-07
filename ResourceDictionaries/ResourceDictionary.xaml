@@ -31,5 +31,25 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Border x:Key="FilialBorderResource" BorderBrush="Black" BorderThickness="1" Width="350" Margin="10" HorizontalAlignment="Right">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                <TextBlock Text=" Филиалы города" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5"/>
+                <Button Content="   Фильтр   " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"/>
+            </DockPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <ListBox ItemsSource="{Binding Path=AllBranches}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource CustomListBoxItemStyle}" />
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+
 </ResourceDictionary>
