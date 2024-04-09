@@ -15,8 +15,10 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10" Grid.Column="0">
-            <Image Source="/CityOrganisations;component/Images/CityMap.png" Stretch="UniformToFill"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="10">
+            <Border x:Name="MapBorder" MouseWheel="Border_MouseWheel">
+                <Image Source="/CityOrganisations;component/Images/CityMap.png" Stretch="UniformToFill"/>
+            </Border>
         </Border>
         <ContentControl Content="{StaticResource FilialBorderResource}" Grid.Column="1"/>
     </Grid>
