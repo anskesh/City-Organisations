@@ -4,14 +4,15 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CityOrganisations.Views"
-      xmlns:mvvm="http://prismlibrary.com/"
+      xmlns:cityOrganisations="clr-namespace:CityOrganisations"
+      xmlns:prism="http://prismlibrary.com/"
       mc:Ignorable="d"
-      mvvm:ViewModelLocator.AutoWireViewModel="True"
-      Title="BranchesPage" Height="auto" Width="auto">
+      prism:ViewModelLocator.AutoWireViewModel="True"
+      Title="MainTabPage" Height="auto" Width="auto">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Border BorderBrush="Black" BorderThickness="1" Margin="10">

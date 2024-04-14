@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CityOrganisations.Views"
+      xmlns:cityOrganisations="clr-namespace:CityOrganisations"
       xmlns:prism="http://prismlibrary.com/"
       mc:Ignorable="d"
       prism:ViewModelLocator.AutoWireViewModel="True"
@@ -20,6 +21,8 @@
                 <Image Source="/CityOrganisations;component/Images/CityMap.png" Stretch="UniformToFill"/>
             </Border>
         </Border>
-        <ContentControl Content="{StaticResource FilialBorderResource}" Grid.Column="1"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="10">
+            <Frame prism:RegionManager.RegionName="{x:Static cityOrganisations:RegionNames.FilialBorderRegion}"/>
+        </Border>
     </Grid>
 </Page>

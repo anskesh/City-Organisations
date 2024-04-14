@@ -23,6 +23,7 @@ namespace CityOrganisations.ViewModels
             _regionManager.RegisterViewWithRegion(RegionNames.HomeRegion, typeof(HomePage));
             _regionManager.RegisterViewWithRegion(RegionNames.OrganizationsRegion, typeof(OrganizationsPage));
             _regionManager.RegisterViewWithRegion(RegionNames.RegistersRegion, typeof(RegistersPage));
+            _regionManager.RegisterViewWithRegion(RegionNames.FilialBorderRegion, typeof(FilialBorderPage));
         }
     }
 }
