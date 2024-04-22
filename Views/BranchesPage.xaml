@@ -10,8 +10,8 @@
       Title="BranchesPage" Height="auto" Width="auto">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <Border BorderBrush="Black" BorderThickness="1" Margin="10">
@@ -41,6 +41,45 @@
                 </ScrollViewer>
             </Grid>
         </Border>
-        <ContentControl Content="{StaticResource FilialBorderResource}" Grid.Column="1"/>
+        
+        <Border BorderBrush="Black" BorderThickness="1" Width="350" Margin="10" Grid.Column="1" HorizontalAlignment="Right">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock Text="Филиалы города" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
+                        <Button Grid.Column="1" Content="Поиск" Margin="5" Width="65"/>
+                        <Button Grid.Column="2" Content="Фильтр" Command="{Binding OpenFilterCommand}" Margin="5" Width="65"/>
+                    </Grid>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ListBox ItemsSource="{Binding Path=AllBranches}">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource BranchesCustomListBoxItem}" />
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
+                <Popup IsOpen="{Binding IsFilterPopupOpen}" StaysOpen="False" Placement="Mouse">
+                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Выберите районы города" HorizontalAlignment="Center" Margin="5"/>
+                            <CheckBox Content="Зашекснинский" Margin="5"/>
+                            <CheckBox Content="Индустриальный" Margin="5"/>
+                            <CheckBox Content="Заречье" Margin="5"/>
+                            <Button Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Center" Margin="5" Width="80"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Border>
     </Grid>
 </Page>
