@@ -46,8 +46,4 @@
       <Resource Include="Images\CityMap.png" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\Tables\" />
-    </ItemGroup>
-
 </Project>
