@@ -15,7 +15,7 @@ namespace CityOrganisations.Views
             InitializeComponent();
 
             // Путь к файлу базы данных
-            string databasePath = "C:\\fork\\City-Organisations\\Data\\organization_branch.db";
+            string databasePath = "Data\\organization_branch.db";
 
             // Создание базы данных и таблиц
             CreateDatabaseAndTables(databasePath);

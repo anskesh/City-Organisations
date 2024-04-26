@@ -23,7 +23,7 @@ namespace CityOrganisations.ViewModels
         private void LoadDataFromDatabase()
         {
             // Путь к файлу базы данных
-            string databasePath = "C:\\fork\\City-Organisations\\Data\\organization_branch.db";
+            string databasePath = "Data\\organization_branch.db";
 
             // Создание соединения с базой данных
             using (var connection = new SQLiteConnection($"Data Source={databasePath}; Version=3;"))
