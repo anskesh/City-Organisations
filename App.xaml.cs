@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using CityOrganisations.Configuration;
 using CityOrganisations.DataBase.Context;
 using CityOrganisations.DataBase.Services;
 using CityOrganisations.Models;
@@ -26,6 +27,7 @@ namespace CityOrganisations
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<ConfigurationService>(() => new ConfigurationService("configuration.json"));
             containerRegistry.RegisterSingleton<OrganizationContext>();
             
             containerRegistry.Register<IRepository<Organization>, DbRepository<Organization>>()
