@@ -7,7 +7,6 @@ namespace CityOrganisations.ViewModels
 {
     public class BranchesPageViewModel : BindableBase
     {
-        //private FilialBorderViewModel _filialBorderViewModel;
         public ObservableCollection<BranchModel> Items => _dbService.Branches;
         public BranchModel SelectedBranch => Items[0];
         
@@ -17,17 +16,5 @@ namespace CityOrganisations.ViewModels
         {
             _dbService = dbService;
         }
-
-
-        /*public bool IsFilterPopupOpen
-        {
-            get => _filialBorderViewModel.IsFilterPopupOpen;
-            set => _filialBorderViewModel.IsFilterPopupOpen = value;
-        }
-
-        public DelegateCommand OpenFilterCommand => _filialBorderViewModel.OpenFilterCommand;
-
-        public DelegateCommand ApplyFilterCommand => _filialBorderViewModel.ApplyFilterCommand;*/
-
     }
 }

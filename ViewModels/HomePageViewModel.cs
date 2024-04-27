@@ -1,4 +1,5 @@
-﻿using CityOrganisations.Models;
+﻿using System;
+using CityOrganisations.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ namespace CityOrganisations.ViewModels
 {
     public class HomePageViewModel : BindableBase
     {
+        public IEnumerable<BranchModel> Items => _dbService.Branches;
+        
         public bool IsFilterPopupOpen
         {
             get => _isFilterPopupOpen;
@@ -25,12 +28,9 @@ namespace CityOrganisations.ViewModels
             OpenFilterCommand = new DelegateCommand(ExecuteOpenFilterCommand);
             ApplyFilterCommand = new DelegateCommand(ExecuteApplyFilterCommand);
         }
-        
-        public IEnumerable<BranchModel> Items => _dbService.Branches;
 
-
-        public DelegateCommand OpenFilterCommand;
-        public DelegateCommand ApplyFilterCommand;
+        public DelegateCommand OpenFilterCommand { get; set; }
+        public DelegateCommand ApplyFilterCommand { get; set; }
 
         private void ExecuteOpenFilterCommand()
         {
