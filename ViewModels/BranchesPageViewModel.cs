@@ -5,10 +5,10 @@ using CityOrganisations.DataBase.Services;
 
 namespace CityOrganisations.ViewModels
 {
-    public class BranchesPageViewModel : BindableBase
+    public class BranchesPageViewModel : BaseViewModel
     {
         public ObservableCollection<BranchModel> Items => _dbService.Branches;
-        public BranchModel SelectedBranch => Items[0];
+        public BranchModel SelectedItem => Items[0];
         
         private readonly DbService _dbService;
 
