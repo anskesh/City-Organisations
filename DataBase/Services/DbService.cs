@@ -33,7 +33,7 @@ namespace CityOrganisations.DataBase.Services
                 OrganizationModel organizationModel = ConvertOrganization(organization);
                 
                 var branchModels = organizationModel.Branches;
-                var branches = _branchRepository.Items.Where(x => x.OrgId == organization.Id);
+                var branches = _branchRepository.Get(x => x.OrgId == organization.Id);
                 
                 foreach (var branch in branches)
                 {
