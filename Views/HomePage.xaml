@@ -8,7 +8,6 @@
       mc:Ignorable="d"
       prism:ViewModelLocator.AutoWireViewModel="True"
       Title="MainTabPage" Height="auto" Width="auto">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -27,6 +26,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                
                 <StackPanel Grid.Row="0" Orientation="Vertical">
                     <TextBlock Text="Филиалы города" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                     <Grid Grid.Row="1">
@@ -35,9 +35,21 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
+                        
                         <TextBox Grid.Column="0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
                         <Button Grid.Column="1" Content="Поиск" Margin="5" Width="65"/>
-                        <Button Grid.Column="2" Content="Фильтр" Command="{Binding OpenFilterCommand}" Margin="5" Width="65"/>
+                        <Button Grid.Column="2" Content="Фильтр" Command="{Binding OpenFilterCommand}" Margin="5" Width="65" />
+                        <Popup Grid.Column="1" IsOpen="{Binding  IsFilterPopupOpen}" StaysOpen="False" Placement="Relative" PlacementRectangle="190 30 0 0">
+                            <Border Background="White" BorderBrush="Black" BorderThickness="1">
+                                <StackPanel>
+                                    <TextBlock Text="Выберите районы города" HorizontalAlignment="Center" Margin="5"/>
+                                    <CheckBox Content="Зашекснинский" Margin="5"/>
+                                    <CheckBox Content="Индустриальный" Margin="5"/>
+                                    <CheckBox Content="Заречье" Margin="5"/>
+                                    <Button Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Center" Margin="5" Width="80"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
                     </Grid>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1">
@@ -47,17 +59,6 @@
                         </ListBox.ItemContainerStyle>
                     </ListBox>
                 </ScrollViewer>
-                <Popup IsOpen="{Binding IsFilterPopupOpen}" StaysOpen="False" Placement="Mouse">
-                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
-                        <StackPanel>
-                            <TextBlock Text="Выберите районы города" HorizontalAlignment="Center" Margin="5"/>
-                            <CheckBox Content="Зашекснинский" Margin="5"/>
-                            <CheckBox Content="Индустриальный" Margin="5"/>
-                            <CheckBox Content="Заречье" Margin="5"/>
-                            <Button Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Center" Margin="5" Width="80"/>
-                        </StackPanel>
-                    </Border>
-                </Popup>
             </Grid>
         </Border>
     </Grid>
