@@ -1,24 +1,29 @@
-﻿using System.Collections.ObjectModel;
-
-namespace CityOrganisations.Models
+﻿namespace CityOrganisations.Models
 {
     public class BranchModel
     {
-        public ObservableCollection<InformationItem> Information { get; set; }
-        public string Name { get; set; }
+        public int Id { get; set; }
+        public string OrgName { get; set; }
+        public string Director { get; set; }
+        public string PhysicalAddress { get; set; }
+        public string Region { get; set; }
+        public float Xpos { get; set; }
+        public float Ypos { get; set; }
 
-        public BranchModel(string name)
+        public BranchModel(int id, string orgName, string director, string physicalAddress, string region, float xpos, float ypos)
         {
-            Name = name;
+            Id = id;
+            OrgName = orgName;
+            Director = director;
+            PhysicalAddress = physicalAddress;
+            Region = region;
+            Xpos = xpos;
+            Ypos = ypos;
+        }
 
-            Information = new ObservableCollection<InformationItem>()
-            {
-                new() {LabelText = "Название организации:", TextBoxText = "Череповецкий государственный университет"},
-                new() {LabelText = "Юридический адрес:", TextBoxText = "Советский проспект, д.8"},
-                //new() {LabelText = "Физический адрес:", TextBoxText = "г. Череповец, д. 10"},
-                new() {LabelText = "Директор филиала:", TextBoxText = "Целикова"},
-                new() {LabelText = "ИНН:", TextBoxText = "23982938192819"},
-            };
+        public override string ToString()
+        {
+            return $"{OrgName}, {PhysicalAddress}";
         }
     }
 }

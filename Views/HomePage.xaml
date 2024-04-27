@@ -40,8 +40,8 @@
                         <Button Grid.Column="2" Content="Фильтр" Command="{Binding OpenFilterCommand}" Margin="5" Width="65"/>
                     </Grid>
                 </StackPanel>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <ListBox ItemsSource="{Binding Path=AllBranches}">
+                <ScrollViewer Grid.Row="1">
+                    <ListBox ItemsSource="{Binding Path=Items}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource HomeCustomListBoxItem}" />
                         </ListBox.ItemContainerStyle>

@@ -28,13 +28,13 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Content="{Binding Branch.Name}"></Label>
+                    <Label Grid.Column="0" Content="{Binding SelectedBranch.OrgName}"></Label>
                     <Button Grid.Column="1" Content="Добавить" Margin="0 0 10 0" Padding="2"></Button>
                     <Button Grid.Column="2" Content="Редактировать" Padding="2"></Button>
                 </Grid>
 
                 <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding Path=Branch.Information}"
+                    <ItemsControl ItemsSource="{Binding Path=SelectedBranch}"
                              ItemTemplate="{StaticResource EditableDescriptionItem}" 
                              HorizontalContentAlignment="Stretch">
                     </ItemsControl>
@@ -62,7 +62,7 @@
                     </Grid>
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <ListBox ItemsSource="{Binding Path=AllBranches}">
+                    <ListBox ItemsSource="{Binding Path=Items}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem" BasedOn="{StaticResource BranchesCustomListBoxItem}" />
                         </ListBox.ItemContainerStyle>

@@ -2,30 +2,44 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
+using CityOrganisations.DataBase.Services;
 
 namespace CityOrganisations.ViewModels
 {
     public class HomePageViewModel : BindableBase
     {
-        private FilialBorderViewModel _filialBorderViewModel;
-
-        public HomePageViewModel()
-        {
-            _filialBorderViewModel = new FilialBorderViewModel();
-        }
-        public IEnumerable<string> AllBranches => _filialBorderViewModel.AllBranches;
-
         public bool IsFilterPopupOpen
         {
-            get => _filialBorderViewModel.IsFilterPopupOpen;
-            set => _filialBorderViewModel.IsFilterPopupOpen = value;
+            get => _isFilterPopupOpen;
+            set => SetProperty(ref _isFilterPopupOpen, value);
+        }
+        
+        private bool _isFilterPopupOpen;
+        
+        private readonly DbService _dbService;
+
+        public HomePageViewModel(DbService dbService)
+        {
+            _dbService = dbService;
+
+            OpenFilterCommand = new DelegateCommand(ExecuteOpenFilterCommand);
+            ApplyFilterCommand = new DelegateCommand(ExecuteApplyFilterCommand);
+        }
+        
+        public IEnumerable<BranchModel> Items => _dbService.Branches;
+
+
+        public DelegateCommand OpenFilterCommand;
+        public DelegateCommand ApplyFilterCommand;
+
+        private void ExecuteOpenFilterCommand()
+        {
+            IsFilterPopupOpen = true;
         }
 
-        public DelegateCommand OpenFilterCommand => _filialBorderViewModel.OpenFilterCommand;
-
-        public DelegateCommand ApplyFilterCommand => _filialBorderViewModel.ApplyFilterCommand;
-
+        private void ExecuteApplyFilterCommand()
+        {
+            IsFilterPopupOpen = false;
+        }
     }
 }

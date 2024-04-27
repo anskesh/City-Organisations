@@ -10,18 +10,21 @@
 
     <ItemGroup>
       <None Remove="Images\CityMap.png" />
-      <None Update="Data\organization_branch.db">
+      <None Update="Data\organizations.db">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="DataBase\organizations.db">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.18" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="7.0.18" />
       <PackageReference Include="Prism.Core" Version="8.1.97" />
       <PackageReference Include="Prism.Unity" Version="8.1.97" />
       <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-      <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
-      <PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />
-      <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.118" />
       <PackageReference Include="System.Drawing.Common" Version="8.0.4" />
     </ItemGroup>
 
@@ -46,6 +49,10 @@
 
     <ItemGroup>
       <Resource Include="Images\CityMap.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configuration\" />
     </ItemGroup>
 
 </Project>

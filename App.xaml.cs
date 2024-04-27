@@ -6,7 +6,12 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using CityOrganisations.DataBase.Context;
+using CityOrganisations.DataBase.Services;
+using CityOrganisations.Models;
+using CityOrganisations.Repositories;
 using CityOrganisations.Views;
+using Microsoft.EntityFrameworkCore;
 using Prism;
 using Prism.Ioc;
 using Prism.Mvvm;
@@ -19,7 +24,15 @@ namespace CityOrganisations
     /// </summary>
     public partial class App : PrismApplication
     {
-        protected override void RegisterTypes(IContainerRegistry containerRegistry) {}
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
+        {
+            containerRegistry.RegisterSingleton<OrganizationContext>();
+            
+            containerRegistry.Register<IRepository<Organization>, DbRepository<Organization>>()
+                .Register<IRepository<Branch>, DbRepository<Branch>>();
+            
+            containerRegistry.RegisterSingleton<DbService>();
+        }
 
         protected override Window CreateShell()
         {
