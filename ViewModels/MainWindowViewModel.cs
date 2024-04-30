@@ -1,4 +1,5 @@
-﻿using CityOrganisations.Views;
+﻿using CityOrganisations.Services.DataBase;
+using CityOrganisations.Views;
 using Prism.Mvvm;
 using Prism.Regions;
 
@@ -15,7 +16,7 @@ namespace CityOrganisations.ViewModels
         private string _title = "City organizations";
         private readonly IRegionManager _regionManager;
 
-        public MainWindowViewModel(IRegionManager regionManager)
+        public MainWindowViewModel(IRegionManager regionManager, CommonDatabaseService commonDatabaseService)
         {
             _regionManager = regionManager;
             

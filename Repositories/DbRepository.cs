@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using CityOrganisations.DataBase.Context;
 using CityOrganisations.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +10,6 @@ namespace CityOrganisations.Repositories
 {
     public class DbRepository<T> : IRepository<T> where T:class, IEntity
     {
-        public IQueryable<T> Items => _set;
-        
         private readonly OrganizationContext _dbContext;
         private readonly DbSet<T> _set;
 
@@ -24,15 +24,17 @@ namespace CityOrganisations.Repositories
             return _set.ToList();
         }
 
-        public IQueryable<T> Get(int id)
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return _set.Where(x => x.Id == id);
+            return _set.Where(predicate);
         }
 
-        public void Add(T item)
+        public int Add(T item)
         {
-            _set.Add(item);
+            var info = _set.Add(item);
             _dbContext.SaveChanges();
+            
+            return info.Entity.Id;
         }
 
         public void Remove(int id)

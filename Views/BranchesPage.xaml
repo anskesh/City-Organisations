@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CityOrganisations.Views"
       xmlns:mvvm="http://prismlibrary.com/"
+      xmlns:customControls="clr-namespace:CityOrganisations.CustomControls"
+      xmlns:customInformationControl="clr-namespace:CityOrganisations.CustomControls.CustomInformationControl"
       mc:Ignorable="d"
       mvvm:ViewModelLocator.AutoWireViewModel="True"
       Title="BranchesPage" Height="auto" Width="auto">
@@ -13,73 +15,22 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-
-        <Border BorderBrush="Black" BorderThickness="1" Margin="10">
-            <Grid Margin="5" VerticalAlignment="Top">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" x:Name="Controls" HorizontalAlignment="Stretch" Height="25" Margin="0 0 0 10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Content="{Binding SelectedBranch.OrgName}"></Label>
-                    <Button Grid.Column="1" Content="Добавить" Margin="0 0 10 0" Padding="2"></Button>
-                    <Button Grid.Column="2" Content="Редактировать" Padding="2"></Button>
-                </Grid>
-
-                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding Path=SelectedBranch}"
-                             ItemTemplate="{StaticResource EditableDescriptionItem}" 
-                             HorizontalContentAlignment="Stretch">
-                    </ItemsControl>
-                </ScrollViewer>
-            </Grid>
-        </Border>
         
-        <Border BorderBrush="Black" BorderThickness="1" Width="350" Margin="10" Grid.Column="1" HorizontalAlignment="Right">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Vertical">
-                    <TextBlock Text="Филиалы города" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-                        <Button Grid.Column="1" Content="Поиск" Margin="5" Width="65"/>
-                        <Button Grid.Column="2" Content="Фильтр" Command="{Binding OpenFilterCommand}" Margin="5" Width="65"/>
-                    </Grid>
-                </StackPanel>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                    <ListBox ItemsSource="{Binding Path=Items}">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource BranchesCustomListBoxItem}" />
-                        </ListBox.ItemContainerStyle>
-                    </ListBox>
-                </ScrollViewer>
-                <Popup IsOpen="{Binding IsFilterPopupOpen}" StaysOpen="False" Placement="Mouse">
-                    <Border Background="White" BorderBrush="Black" BorderThickness="1">
-                        <StackPanel>
-                            <TextBlock Text="Выберите районы города" HorizontalAlignment="Center" Margin="5"/>
-                            <CheckBox Content="Зашекснинский" Margin="5"/>
-                            <CheckBox Content="Индустриальный" Margin="5"/>
-                            <CheckBox Content="Заречье" Margin="5"/>
-                            <Button Content="Применить" Command="{Binding ApplyFilterCommand}" HorizontalAlignment="Center" Margin="5" Width="80"/>
-                        </StackPanel>
-                    </Border>
-                </Popup>
-            </Grid>
-        </Border>
+        <customControls:EditPanelControl HeaderLabel="{Binding SelectedItem.OrgName}"
+                                             AddClickCommand="{Binding AddClickCommand}"
+                                             EditClickCommand="{Binding EditClickCommand}"
+                                             SaveClickCommand="{Binding SaveClickCommand}"
+                                             CancelClickCommand="{Binding CancelClickCommand}">
+            <customControls:EditPanelControl.InfoContent>
+                <ItemsControl ItemsSource="{Binding Path=SelectedItem}" HorizontalContentAlignment="Stretch">
+                    <customInformationControl:InformControl  Label="Название организации" BoxText="{Binding SelectedItem.OrgName}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Директор" BoxText="{Binding SelectedItem.Director}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Физический адрес" BoxText="{Binding SelectedItem.PhysicalAddress}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Район" BoxText="{Binding SelectedItem.Region}"></customInformationControl:InformControl>
+                </ItemsControl>
+            </customControls:EditPanelControl.InfoContent>
+        </customControls:EditPanelControl>
+        
+        <customControls:RightPanelControl Grid.Column="1" PanelTitle="Филиалы города"/>
     </Grid>
 </Page>

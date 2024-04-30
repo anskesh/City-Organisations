@@ -6,8 +6,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
+using CityOrganisations.Configuration;
+using CityOrganisations.CustomControls;
 using CityOrganisations.DataBase.Context;
-using CityOrganisations.DataBase.Services;
+using CityOrganisations.Services.DataBase;
+using CityOrganisations.Dialogs;
 using CityOrganisations.Models;
 using CityOrganisations.Repositories;
 using CityOrganisations.Views;
@@ -26,12 +29,23 @@ namespace CityOrganisations
     {
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<OrganizationContext>();
+            containerRegistry.RegisterSingleton<ConfigurationService>(() => new ConfigurationService("configuration.json"));
             
+            containerRegistry.RegisterSingleton<OrganizationContext>();
             containerRegistry.Register<IRepository<Organization>, DbRepository<Organization>>()
                 .Register<IRepository<Branch>, DbRepository<Branch>>();
             
-            containerRegistry.RegisterSingleton<DbService>();
+            containerRegistry.RegisterSingleton<OrganizationsService>();
+            containerRegistry.Register<IDatabaseService<OrganizationModel>, OrganizationsService>();
+            
+            containerRegistry.RegisterSingleton<BranchesService>();
+            containerRegistry.Register<IDatabaseService<BranchModel>, BranchesService>();
+            
+            containerRegistry.RegisterSingleton<CommonDatabaseService>();
+            
+            // Диалоговые окна
+            containerRegistry.RegisterDialog<ConfirmationDialog>();
+            containerRegistry.RegisterDialog<InformationDialog>();
         }
 
         protected override Window CreateShell()

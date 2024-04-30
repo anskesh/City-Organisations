@@ -1,45 +1,23 @@
-﻿using System;
-using CityOrganisations.Models;
-using Prism.Commands;
-using Prism.Mvvm;
-using System.Collections.Generic;
-using CityOrganisations.DataBase.Services;
+﻿using CityOrganisations.Models;
+using CityOrganisations.Services.DataBase;
+using Prism.Events;
+using Prism.Services.Dialogs;
 
 namespace CityOrganisations.ViewModels
 {
-    public class HomePageViewModel : BindableBase
+    public class HomePageViewModel : BaseEditableViewModel<BranchModel>
     {
-        public IEnumerable<BranchModel> Items => _dbService.Branches;
+        public HomePageViewModel(IDatabaseService<BranchModel> databaseService, IDialogService dialogService, IEventAggregator eventAggregator) : 
+            base(databaseService, dialogService, eventAggregator) {}
         
-        public bool IsFilterPopupOpen
+        protected override BranchModel CreateItemCopy(BranchModel item)
         {
-            get => _isFilterPopupOpen;
-            set => SetProperty(ref _isFilterPopupOpen, value);
-        }
-        
-        private bool _isFilterPopupOpen;
-        
-        private readonly DbService _dbService;
-
-        public HomePageViewModel(DbService dbService)
-        {
-            _dbService = dbService;
-
-            OpenFilterCommand = new DelegateCommand(ExecuteOpenFilterCommand);
-            ApplyFilterCommand = new DelegateCommand(ExecuteApplyFilterCommand);
+            throw new System.NotImplementedException();
         }
 
-        public DelegateCommand OpenFilterCommand { get; set; }
-        public DelegateCommand ApplyFilterCommand { get; set; }
-
-        private void ExecuteOpenFilterCommand()
+        protected override bool OnSaveAdditionalCheck()
         {
-            IsFilterPopupOpen = true;
-        }
-
-        private void ExecuteApplyFilterCommand()
-        {
-            IsFilterPopupOpen = false;
+            throw new System.NotImplementedException();
         }
     }
 }

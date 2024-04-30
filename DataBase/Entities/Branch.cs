@@ -9,5 +9,23 @@
         public string Region { get; set; }
         public float XPos { get; set; }
         public float YPos { get; set; }
+        
+        public Branch(){}
+
+        public Branch(BranchModel model)
+        {
+            Copy(model);
+        }
+
+        public void Copy(BranchModel model)
+        {
+            Id = model.Id;
+            OrgId = model.OrgId;
+            Director = model.Director;
+            PhysicalAddress = model.PhysicalAddress;
+            Region = model.Region;
+            XPos = model.Xpos;
+            YPos = model.Ypos;
+        }
     }
 }
