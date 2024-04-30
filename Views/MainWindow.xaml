@@ -56,10 +56,10 @@
                 <Frame prism:RegionManager.RegionName="{x:Static cityOrganisations:RegionNames.OrganizationsRegion}">
                 </Frame>
             </TabItem>
-            <TabItem Header="Реестры">
+            <!--<TabItem Header="Реестры">
                 <Frame prism:RegionManager.RegionName="{x:Static cityOrganisations:RegionNames.RegistersRegion}">
                 </Frame>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
     </Grid>
 </Window>

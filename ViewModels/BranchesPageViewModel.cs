@@ -1,20 +1,20 @@
 ﻿using CityOrganisations.Models;
-using Prism.Mvvm;
-using System.Collections.ObjectModel;
-using CityOrganisations.DataBase.Services;
+using CityOrganisations.Services.DataBase;
+using Prism.Events;
+using Prism.Services.Dialogs;
 
 namespace CityOrganisations.ViewModels
 {
-    public class BranchesPageViewModel : BaseViewModel
+    public class BranchesPageViewModel : BaseEditableViewModel<BranchModel>
     {
-        public ObservableCollection<BranchModel> Items => _dbService.Branches;
-        public BranchModel SelectedItem => Items[0];
-        
-        private readonly DbService _dbService;
+        public BranchesPageViewModel(IDatabaseService<BranchModel> databaseService, IDialogService dialogService, IEventAggregator eventAggregator) : 
+            base(databaseService, dialogService, eventAggregator) {}
 
-        public BranchesPageViewModel(DbService dbService)
+        protected override BranchModel CreateItemCopy(BranchModel item)
         {
-            _dbService = dbService;
+            return new BranchModel(item);
         }
+
+        protected override bool OnSaveAdditionalCheck() => true;
     }
 }

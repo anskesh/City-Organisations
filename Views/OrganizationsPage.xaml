@@ -14,16 +14,20 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         
-        <customControls:EditPanelControlView HeaderLabel="{Binding SelectedItem.Name}">
-            <customControls:EditPanelControlView.InfoContent>
+        <customControls:EditPanelControl HeaderLabel="{Binding SelectedItem.Name}"
+                                             AddClickCommand="{Binding AddClickCommand}"
+                                             EditClickCommand="{Binding EditClickCommand}"
+                                             SaveClickCommand="{Binding SaveClickCommand}"
+                                             CancelClickCommand="{Binding CancelClickCommand}">
+            <customControls:EditPanelControl.InfoContent>
                 <ItemsControl ItemsSource="{Binding Path=SelectedItem}" HorizontalContentAlignment="Stretch">
-                    <customInformationControl:InformControlView Label="Название" BoxText="{Binding SelectedItem.Name}"></customInformationControl:InformControlView>
-                    <customInformationControl:InformControlView Label="Юридический адрес" BoxText="{Binding SelectedItem.LegalAddress}"></customInformationControl:InformControlView>
-                    <customInformationControl:InformControlView Label="ИНН" BoxText="{Binding SelectedItem.TaxId}"></customInformationControl:InformControlView>
+                    <customInformationControl:InformControl Label="Название" BoxText="{Binding SelectedItem.Name}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Юридический адрес" BoxText="{Binding SelectedItem.LegalAddress}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="ИНН" BoxText="{Binding SelectedItem.TaxId}"></customInformationControl:InformControl>
                 </ItemsControl>
-            </customControls:EditPanelControlView.InfoContent>
-        </customControls:EditPanelControlView>
+            </customControls:EditPanelControl.InfoContent>
+        </customControls:EditPanelControl>
         
-        <customControls:RightPanelControlView Grid.Column="1" PanelTitle="Организации города"/>
+        <customControls:RightPanelControl Grid.Column="1" PanelTitle="Организации города" />
     </Grid>
 </Page>

@@ -16,16 +16,21 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         
-        <customControls:EditPanelControlView HeaderLabel="{Binding SelectedItem.OrgName}">
-            <customControls:EditPanelControlView.InfoContent>
+        <customControls:EditPanelControl HeaderLabel="{Binding SelectedItem.OrgName}"
+                                             AddClickCommand="{Binding AddClickCommand}"
+                                             EditClickCommand="{Binding EditClickCommand}"
+                                             SaveClickCommand="{Binding SaveClickCommand}"
+                                             CancelClickCommand="{Binding CancelClickCommand}">
+            <customControls:EditPanelControl.InfoContent>
                 <ItemsControl ItemsSource="{Binding Path=SelectedItem}" HorizontalContentAlignment="Stretch">
-                    <customInformationControl:InformControlView Label="Директор" BoxText="{Binding SelectedItem.Director}"></customInformationControl:InformControlView>
-                    <customInformationControl:InformControlView Label="Физический адрес" BoxText="{Binding SelectedItem.PhysicalAddress}"></customInformationControl:InformControlView>
-                    <customInformationControl:InformControlView Label="Район" BoxText="{Binding SelectedItem.Region}"></customInformationControl:InformControlView>
+                    <customInformationControl:InformControl  Label="Название организации" BoxText="{Binding SelectedItem.OrgName}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Директор" BoxText="{Binding SelectedItem.Director}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Физический адрес" BoxText="{Binding SelectedItem.PhysicalAddress}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Район" BoxText="{Binding SelectedItem.Region}"></customInformationControl:InformControl>
                 </ItemsControl>
-            </customControls:EditPanelControlView.InfoContent>
-        </customControls:EditPanelControlView>
+            </customControls:EditPanelControl.InfoContent>
+        </customControls:EditPanelControl>
         
-        <customControls:RightPanelControlView Grid.Column="1" PanelTitle="Филиалы города"/>
+        <customControls:RightPanelControl Grid.Column="1" PanelTitle="Филиалы города"/>
     </Grid>
 </Page>

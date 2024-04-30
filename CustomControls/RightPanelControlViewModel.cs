@@ -1,9 +1,10 @@
-﻿using Prism.Commands;
+﻿using CityOrganisations.Services.DataBase;
+using Prism.Commands;
 using Prism.Mvvm;
 
-namespace CityOrganisations.ViewModels
+namespace CityOrganisations.CustomControls
 {
-    public class BaseViewModel : BindableBase
+    public class RightPanelControlViewModel : BindableBase
     {
         public bool IsFilterPopupOpen
         {
@@ -12,16 +13,16 @@ namespace CityOrganisations.ViewModels
         }
         
         private bool _isFilterPopupOpen;
-
-        public BaseViewModel()
+        
+        public DelegateCommand OpenFilterCommand { get; set; }
+        public DelegateCommand ApplyFilterCommand { get; set; }
+        
+        public RightPanelControlViewModel(EventService eventService)
         {
             OpenFilterCommand = new DelegateCommand(ExecuteOpenFilterCommand);
             ApplyFilterCommand = new DelegateCommand(ExecuteApplyFilterCommand);
         }
         
-        public DelegateCommand OpenFilterCommand { get; set; }
-        public DelegateCommand ApplyFilterCommand { get; set; }
-
         private void ExecuteOpenFilterCommand()
         {
             IsFilterPopupOpen = true;

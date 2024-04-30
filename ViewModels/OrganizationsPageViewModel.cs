@@ -1,19 +1,31 @@
-﻿using System.Collections.ObjectModel;
-using CityOrganisations.DataBase.Services;
+﻿using System.Linq;
+using CityOrganisations.Services.DataBase;
+using CityOrganisations.Dialogs;
 using CityOrganisations.Models;
+using Prism.Events;
+using Prism.Services.Dialogs;
 
 namespace CityOrganisations.ViewModels
 {
-    public class OrganizationsPageViewModel : BaseViewModel
+    public class OrganizationsPageViewModel : BaseEditableViewModel<OrganizationModel>
     {
-        public ObservableCollection<OrganizationModel> Items => _dbService.Organizations;
-        public OrganizationModel SelectedItem => Items[0];
+        public OrganizationsPageViewModel(IDatabaseService<OrganizationModel> databaseService, IDialogService dialogService, IEventAggregator eventAggregator) : 
+            base(databaseService, dialogService, eventAggregator) {}
         
-        private readonly DbService _dbService;
-
-        public OrganizationsPageViewModel(DbService dbService)
+        protected override OrganizationModel CreateItemCopy(OrganizationModel item)
         {
-            _dbService = dbService;
+            return new OrganizationModel(item);
+        }
+
+        protected override bool OnSaveAdditionalCheck()
+        {
+            if (Items.Any(x => x.Name == SelectedItem.Name))
+            {
+                DialogService.ShowDialog(nameof(InformationDialog), new DialogParameters("Message=Организация с таким именем уже существует"), _ => {});
+                return false;
+            }
+
+            return true;
         }
     }
 }

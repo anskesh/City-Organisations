@@ -3,13 +3,13 @@ using System.Windows.Controls;
 
 namespace CityOrganisations.CustomControls.CustomInformationControl
 {
-    public partial class InformControlView : UserControl
+    public partial class InformControl : UserControl
     {
         public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label),
-            typeof(string), typeof(RightPanelControlView), new PropertyMetadata(string.Empty));
+            typeof(string), typeof(RightPanelControl), new PropertyMetadata(string.Empty));
         
         public static readonly DependencyProperty BoxTextProperty =
-            DependencyProperty.Register(nameof(BoxText), typeof(string), typeof(InformControlView), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+            DependencyProperty.Register(nameof(BoxText), typeof(string), typeof(InformControl), new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public string Label
         {
@@ -23,7 +23,7 @@ namespace CityOrganisations.CustomControls.CustomInformationControl
             set => SetValue(BoxTextProperty, value);
         }
         
-        public InformControlView()
+        public InformControl()
         {
             InitializeComponent();
         }

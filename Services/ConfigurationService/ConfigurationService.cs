@@ -13,7 +13,7 @@ namespace CityOrganisations.Configuration
         {
             _configurationPath = configurationPath;
             
-            var configuration = new ConfigurationBuilder()
+            IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(configurationPath)
                 .Build();

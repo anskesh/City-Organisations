@@ -29,10 +29,12 @@ namespace CityOrganisations.Repositories
             return _set.Where(predicate);
         }
 
-        public void Add(T item)
+        public int Add(T item)
         {
-            _set.Add(item);
+            var info = _set.Add(item);
             _dbContext.SaveChanges();
+            
+            return info.Entity.Id;
         }
 
         public void Remove(int id)

@@ -21,6 +21,6 @@
             </Border>
         </Border>
 
-        <customControls:RightPanelControlView Grid.Column="1" PanelTitle="Филиалы города"/>
+        <customControls:RightPanelControl Grid.Column="1" PanelTitle="Филиалы города" />
     </Grid>
 </Page>

@@ -10,7 +10,7 @@ namespace CityOrganisations.Repositories
     {
         List<T> Get();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
-        void Add(T item);
+        int Add(T item);
         void Remove(int id);
 
         void Update(T item);
