@@ -17,7 +17,8 @@
 
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="10">
             <Canvas Name="MapCanvas" Width="{Binding ActualWidth, ElementName=MapBorder}" 
-                    Height="{Binding ActualHeight, ElementName=MapBorder}">
+                    Height="{Binding ActualHeight, ElementName=MapBorder}"
+                    MouseRightButtonUp="MouseRightButtonCanvas">
                 <Image Source="/CityOrganisations;component/Images/CityMap.png" Stretch="UniformToFill" 
                        Width="{Binding ActualWidth, ElementName=MapCanvas}" 
                        Height="{Binding ActualHeight, ElementName=MapCanvas}"/>
