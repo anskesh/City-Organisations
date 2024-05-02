@@ -19,10 +19,8 @@ namespace CityOrganisations.Views
         private void MouseRightButtonCanvas(object sender, MouseButtonEventArgs e)
         {
             var viewModel = DataContext as HomePageViewModel;
-            if (viewModel != null)
-            {
-                viewModel.HandleMouseRightButton(e, MapCanvas);
-            }
+            viewModel.HandleMouseRightButton(e, MapCanvas);
+
         }
     }
 }
