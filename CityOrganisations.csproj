@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <None Remove="Images\CityMap.png" />
+      <None Remove="Images\Point.png" />
       <None Update="Data\organizations.db">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
@@ -60,6 +61,9 @@
 
     <ItemGroup>
       <Resource Include="Images\CityMap.png" />
+      <Resource Include="Images\Point.png">
+        <CopyToOutputDirectory></CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
 </Project>

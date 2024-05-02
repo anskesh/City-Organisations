@@ -4,10 +4,13 @@ using Prism.Events;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.IO;
+
 
 namespace CityOrganisations.ViewModels
 {
@@ -66,9 +69,18 @@ namespace CityOrganisations.ViewModels
 
         private void AddPointToCanvas(Point position, Canvas mapCanvas)
         {
+
+            Uri uri = new Uri("Images/Point.png", UriKind.Relative);
+
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.UriSource = uri;
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.EndInit();
+
             Image pointImage = new Image
             {
-                Source = new BitmapImage(new Uri(@"C:\fork\City-Organisations\Images\Point.png")),
+                Source = bitmapImage,
                 Width = 25,
                 Height = 25
             };
