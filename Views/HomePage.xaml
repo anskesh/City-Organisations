@@ -15,15 +15,24 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="0" Margin="10">
-            <Canvas Name="MapCanvas" Width="{Binding ActualWidth, ElementName=MapBorder}" 
-                    Height="{Binding ActualHeight, ElementName=MapBorder}"
-                    MouseRightButtonUp="MouseRightButtonCanvas">
-                <Image Source="/CityOrganisations;component/Images/CityMap.png" Stretch="UniformToFill" 
-                       Width="{Binding ActualWidth, ElementName=MapCanvas}" 
-                       Height="{Binding ActualHeight, ElementName=MapCanvas}"/>
-            </Canvas>
-        </Border>
+        <ScrollViewer x:Name="MapScrollViewer" 
+              Grid.Column="0" 
+              Margin="10"
+              HorizontalScrollBarVisibility="Hidden"
+              VerticalScrollBarVisibility="Hidden"
+              PreviewMouseWheel="MapScrollViewer_PreviewMouseWheel">
+            <Border BorderThickness="1">
+                <Canvas Name="MapCanvas" 
+                Width="{Binding ActualWidth, ElementName=MapScrollViewer}" 
+                Height="{Binding ActualHeight, ElementName=MapScrollViewer}" 
+                MouseRightButtonUp="MouseRightButtonCanvas">
+                    <Image Source="/CityOrganisations;component/Images/CityMap.png" 
+                   Stretch="UniformToFill" 
+                   Width="{Binding ActualWidth, ElementName=MapCanvas}" 
+                   Height="{Binding ActualHeight, ElementName=MapCanvas}"/>
+                </Canvas>
+            </Border>
+        </ScrollViewer>
 
         <customControls:RightPanelControl Grid.Column="1" PanelTitle="Филиалы города" />
     </Grid>
