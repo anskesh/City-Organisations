@@ -25,7 +25,7 @@ namespace CityOrganisations.CustomControls
         public RightPanelControl()
         {
             InitializeComponent();
-            EventService.EventAggregator.GetEvent<RefreshListEvent>().Subscribe(OnRefreshListEvent);
+            //EventService.EventAggregator.GetEvent<RefreshListEvent>().Subscribe(OnRefreshListEvent);
         }
         
         private void OnRefreshListEvent()
