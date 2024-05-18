@@ -67,7 +67,7 @@ namespace CityOrganisations.Services.DataBase
                 foreach (var branch in branches)
                     branch.OrgName = newModel.Name;
                 
-                _eventAggregator.GetEvent<UpdateItemEvent>().Publish();
+                _eventAggregator.GetEvent<UpdateSelectedItemEvent>().Publish();
                 _eventAggregator.GetEvent<RefreshListEvent>().Publish(); // вызываем ивент для обновления содержимого списков
             }
         }

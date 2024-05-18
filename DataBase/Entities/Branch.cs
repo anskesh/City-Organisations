@@ -24,8 +24,8 @@
             Director = model.Director;
             PhysicalAddress = model.PhysicalAddress;
             Region = model.Region;
-            XPos = model.Xpos;
-            YPos = model.Ypos;
+            XPos = model.XPos;
+            YPos = model.YPos;
         }
     }
 }

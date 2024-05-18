@@ -19,6 +19,14 @@
             TaxId = taxId;
         }
 
+        public void Copy(OrganizationModel model)
+        {
+            Id = model.Id;
+            Name = model.Name;
+            LegalAddress = model.LegalAddress;
+            TaxId = model.TaxId;
+        }
+
         public override string ToString()
         {
             return Name;

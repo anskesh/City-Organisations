@@ -62,7 +62,7 @@
     <ItemGroup>
       <Resource Include="Images\CityMap.png" />
       <Resource Include="Images\Point.png">
-        <CopyToOutputDirectory></CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>
 

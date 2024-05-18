@@ -3,11 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CityOrganisations.Views"
       xmlns:prism="http://prismlibrary.com/"
       xmlns:customControls="clr-namespace:CityOrganisations.CustomControls"
+      xmlns:viewModels="clr-namespace:CityOrganisations.ViewModels"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       prism:ViewModelLocator.AutoWireViewModel="True"
+      d:DataContext="{d:DesignInstance viewModels:HomePageViewModel}"
       Title="MainTabPage" Height="auto" Width="auto">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -15,23 +17,47 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer x:Name="MapScrollViewer" 
-              Grid.Column="0" 
+        <ScrollViewer x:Name="ScrollViewer"
+              Grid.Column="0"
               Margin="10"
-              HorizontalScrollBarVisibility="Hidden"
-              VerticalScrollBarVisibility="Hidden"
-              PreviewMouseWheel="MapScrollViewer_PreviewMouseWheel">
-            <Border BorderThickness="1">
-                <Canvas Name="MapCanvas" 
-                Width="{Binding ActualWidth, ElementName=MapScrollViewer}" 
-                Height="{Binding ActualHeight, ElementName=MapScrollViewer}" 
-                MouseRightButtonUp="MouseRightButtonCanvas">
-                    <Image Source="/CityOrganisations;component/Images/CityMap.png" 
-                   Stretch="UniformToFill" 
-                   Width="{Binding ActualWidth, ElementName=MapCanvas}" 
-                   Height="{Binding ActualHeight, ElementName=MapCanvas}"/>
-                </Canvas>
-            </Border>
+              HorizontalScrollBarVisibility="Visible"
+              VerticalScrollBarVisibility="Visible">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="PreviewMouseWheel">
+                    <b:InvokeCommandAction Command="{Binding MouseWheelCommand}" PassEventArgsToCommand="True" />
+                </b:EventTrigger>
+                <b:EventTrigger EventName="Loaded">
+                    <b:InvokeCommandAction Command="{Binding ScrollViewerLoadedCommand}" 
+                                           CommandParameter="{Binding ElementName=ScrollViewer}"/>
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
+            <ItemsControl ItemsSource="{Binding Points}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Height="{Binding Height}" Width="{Binding Width}">
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="MouseRightButtonUp">
+                                    <b:InvokeCommandAction Command="{Binding MouseRightButtonCommand}" PassEventArgsToCommand="True" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
+                            <Canvas.Background>
+                                <ImageBrush ImageSource="/CityOrganisations;component/Images/CityMap.png"></ImageBrush>
+                            </Canvas.Background>
+                        </Canvas>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image Width="{Binding ImageSize, RelativeSource={RelativeSource AncestorType=viewModels:HomePageViewModel}}" Height="25" Source="/CityOrganisations;component/Images/Point.png">
+                            <Image.RenderTransform>
+                                <TranslateTransform 
+                                    X="{Binding X, Mode=TwoWay}" 
+                                    Y="{Binding Y, Mode=TwoWay}" />
+                            </Image.RenderTransform>
+                        </Image>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </ScrollViewer>
 
         <customControls:RightPanelControl Grid.Column="1" PanelTitle="Филиалы города" />

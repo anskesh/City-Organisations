@@ -41,14 +41,14 @@ namespace CityOrganisations.Services.DataBase
 
         public override void Update(OrganizationModel model, OrganizationModel newModel)
         {
-            int index = Items.IndexOf(model);
-            Items[index] = newModel;
-
-            Organization organization = Repository.Get(x => x.Id == newModel.Id).First();
-            organization.Copy(newModel);
-            Repository.Update(organization);
-            
             UpdateEvent?.Invoke(model, newModel); // обрабатываем изменения
+            
+            int index = Items.IndexOf(model);
+            Items[index].Copy(newModel);
+
+            Organization organization = Repository.Get(x => x.Id == model.Id).First();
+            organization.Copy(model);
+            Repository.Update(organization);
         }
 
         public override void Remove(OrganizationModel model)

@@ -45,10 +45,10 @@ namespace CityOrganisations.Services.DataBase
             UpdateEvent?.Invoke(model, newModel);
 
             int index = Items.IndexOf(model);
-            Items[index] = newModel;
+            Items[index].Copy(newModel);
 
-            Branch branch = Repository.Get(x => x.Id == newModel.Id).First();
-            branch.Copy(newModel);
+            Branch branch = Repository.Get(x => x.Id == model.Id).First();
+            branch.Copy(model);
             Repository.Update(branch);
         }
 

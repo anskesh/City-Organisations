@@ -49,7 +49,7 @@ namespace CityOrganisations.ViewModels
             if (Items.Count > 0) // если будет 0 элементов, то будет пустой элемент
                 ChangeSelectCommand(SelectedIndex);
 
-            EventAggregator.GetEvent<UpdateItemEvent>().Subscribe(UpdateItemSelect);
+            EventAggregator.GetEvent<UpdateSelectedItemEvent>().Subscribe(UpdateItemSelect);
             
             AddClickCommand = new DelegateCommand(AddCommand);
             EditClickCommand = new DelegateCommand(EditCommand, CanExecuteEdit);

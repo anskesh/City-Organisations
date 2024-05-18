@@ -1,5 +1,4 @@
-﻿using CityOrganisations.Services.DataBase;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 
 namespace CityOrganisations.CustomControls
@@ -17,7 +16,7 @@ namespace CityOrganisations.CustomControls
         public DelegateCommand OpenFilterCommand { get; set; }
         public DelegateCommand ApplyFilterCommand { get; set; }
         
-        public RightPanelControlViewModel(EventService eventService)
+        public RightPanelControlViewModel()
         {
             OpenFilterCommand = new DelegateCommand(ExecuteOpenFilterCommand);
             ApplyFilterCommand = new DelegateCommand(ExecuteApplyFilterCommand);

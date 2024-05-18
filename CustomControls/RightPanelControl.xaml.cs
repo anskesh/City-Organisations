@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using CityOrganisations.Services.DataBase;
-using CityOrganisations.Events;
 
 namespace CityOrganisations.CustomControls
 {
@@ -25,12 +23,6 @@ namespace CityOrganisations.CustomControls
         public RightPanelControl()
         {
             InitializeComponent();
-            //EventService.EventAggregator.GetEvent<RefreshListEvent>().Subscribe(OnRefreshListEvent);
-        }
-        
-        private void OnRefreshListEvent()
-        {
-            ListBox.Items.Refresh();
         }
     }
 }
