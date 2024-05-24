@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         prism:ViewModelLocator.AutoWireViewModel="True"
         Background="LightGreen"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800" >
 
     <Window.Resources>
         <Style TargetType="TabControl">
@@ -56,10 +56,6 @@
                 <Frame prism:RegionManager.RegionName="{x:Static cityOrganisations:RegionNames.OrganizationsRegion}">
                 </Frame>
             </TabItem>
-            <!--<TabItem Header="Реестры">
-                <Frame prism:RegionManager.RegionName="{x:Static cityOrganisations:RegionNames.RegistersRegion}">
-                </Frame>
-            </TabItem>-->
         </TabControl>
     </Grid>
 </Window>

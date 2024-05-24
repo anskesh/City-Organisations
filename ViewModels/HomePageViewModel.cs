@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Prism.Commands;
 
 namespace CityOrganisations.ViewModels
@@ -22,31 +23,19 @@ namespace CityOrganisations.ViewModels
             set => SetProperty(ref _imageSize, value);
         }
         
-        public double Width
-        {
-            get => _width;
-            set => SetProperty(ref _width, value);
-        }
-
-        public double Height
-        {
-            get => _height;
-            set => SetProperty(ref _height, value);
-        }
-        
         public ObservableCollection<PointModel> Points { get; } = new();
         public ICommand MouseWheelCommand { get; }
         public ICommand ScrollViewerLoadedCommand { get; }
+        public ICommand ScrollViewerSizeChangedCommand { get; }
         public ICommand MouseRightButtonCommand { get; }
 
-        private float _scale = 1.0f;
-        private float _imageSize = 25;
-        
-        private double _width;
-        private double _height;
+        public ScaleTransform Scale => _scale;
 
-        private double _originalWidth;
-        private double _originalHeight;
+        private float _imageSize = 25;
+    
+        private ScaleTransform _scale = new();
+        private double _maxScale = 5;
+        private double _minScale = 1f;
 
         private ScrollViewer _scrollViewer;
         private Dictionary<BranchModel, PointModel> _points = new();
@@ -56,6 +45,7 @@ namespace CityOrganisations.ViewModels
         {
             MouseWheelCommand = new DelegateCommand<MouseWheelEventArgs>(OnMouseWheel);
             ScrollViewerLoadedCommand = new DelegateCommand<object>(OnScrollViewLoaded);
+            ScrollViewerSizeChangedCommand = new DelegateCommand<object>(OnSizeChanged);
             MouseRightButtonCommand = new DelegateCommand<MouseButtonEventArgs>(OnMouseRightClick);
             
             InitializePoints();
@@ -99,44 +89,53 @@ namespace CityOrganisations.ViewModels
             if (sender is ScrollViewer scrollViewer)
             {
                 _scrollViewer = scrollViewer;
-                
-                Width = scrollViewer.ActualWidth - 20;
-                Height = scrollViewer.ActualHeight - 20;
-
-                _originalHeight = _height;
-                _originalWidth = _width;
+                UpdateScaleValues();
             }
+        }
+
+        private void OnSizeChanged(object sender)
+        {
+            UpdateScaleValues();
+        }
+
+        private void UpdateScaleValues()
+        {
+            if (_scrollViewer.Content is Canvas canvas)
+            {
+                double scale = _scrollViewer.ActualHeight / canvas.ActualHeight;
+                _minScale = scale;
+                
+                ChangeScale(Scale.ScaleX);
+            }
+        }
+
+        private void ChangeScale(double newScale)
+        {
+            if (newScale > _maxScale)
+                newScale = _maxScale;
+            
+            if (newScale < _minScale) 
+                newScale = _minScale;
+            
+            Scale.ScaleX = newScale;
+            Scale.ScaleY = newScale;
         }
         
         private void OnMouseWheel(MouseWheelEventArgs e)
         {
-            float scaleStep = 0.1f;
+            float scaleRate = 1.1f;
 
             if (e.Delta > 0)
-            {
-                _scale += scaleStep;
-            }
+                ChangeScale(Scale.ScaleX * scaleRate);
             else
-            {
-                float newScaleX = _scale - scaleStep;
-
-                if (newScaleX >= 1.0)
-                    _scale = newScaleX;
-            }
-
-            Width = _originalWidth * _scale;
-            Height = _originalHeight * _scale;
+                ChangeScale(Scale.ScaleX / scaleRate);
             
-            // Обновляем координаты точек с учетом нового масштаба
-            foreach (var point in Points)
-                point.ChangeScale(_scale);
-
             e.Handled = true;
         }
         
         private void OnMouseRightClick(MouseButtonEventArgs e)
         {
-            PointModel position = CalculatePosition(e.GetPosition(_scrollViewer));
+            PointModel position = CalculatePosition(e.GetPosition(e.Source as IInputElement));
             ContextMenu contextMenu = new ContextMenu();
 
             if (!_points.ContainsKey(Items[SelectedIndex]))
@@ -172,14 +171,10 @@ namespace CityOrganisations.ViewModels
 
         private PointModel CalculatePosition(Point mousePosition)
         {
-            // Учитываем смещение, вызванное скроллбарами
-            double offsetX = _scrollViewer.HorizontalOffset;
-            double offsetY = _scrollViewer.VerticalOffset;
+            float finalX = (float) (mousePosition.X );
+            float finalY = (float) (mousePosition.Y );
 
-            float finalX = (float) (mousePosition.X + offsetX) - _imageSize / 2;
-            float finalY = (float) (mousePosition.Y + offsetY - _imageSize);
-
-            return new PointModel(finalX, finalY, _scale);
+            return new PointModel(finalX, finalY, 1);
         }
         
         private PointModel FindPointNearPosition(PointModel position)

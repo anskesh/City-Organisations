@@ -23,41 +23,39 @@
               HorizontalScrollBarVisibility="Visible"
               VerticalScrollBarVisibility="Visible">
             <b:Interaction.Triggers>
-                <b:EventTrigger EventName="PreviewMouseWheel">
-                    <b:InvokeCommandAction Command="{Binding MouseWheelCommand}" PassEventArgsToCommand="True" />
-                </b:EventTrigger>
                 <b:EventTrigger EventName="Loaded">
                     <b:InvokeCommandAction Command="{Binding ScrollViewerLoadedCommand}" 
                                            CommandParameter="{Binding ElementName=ScrollViewer}"/>
                 </b:EventTrigger>
+                <b:EventTrigger EventName="SizeChanged">
+                    <b:InvokeCommandAction Command="{Binding ScrollViewerSizeChangedCommand}" 
+                                           CommandParameter="{Binding ElementName=ScrollViewer}"/>
+                </b:EventTrigger>
             </b:Interaction.Triggers>
-            <ItemsControl ItemsSource="{Binding Points}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas Height="{Binding Height}" Width="{Binding Width}">
-                            <b:Interaction.Triggers>
-                                <b:EventTrigger EventName="MouseRightButtonUp">
-                                    <b:InvokeCommandAction Command="{Binding MouseRightButtonCommand}" PassEventArgsToCommand="True" />
-                                </b:EventTrigger>
-                            </b:Interaction.Triggers>
-                            <Canvas.Background>
-                                <ImageBrush ImageSource="/CityOrganisations;component/Images/CityMap.png"></ImageBrush>
-                            </Canvas.Background>
-                        </Canvas>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Image Width="{Binding ImageSize, RelativeSource={RelativeSource AncestorType=viewModels:HomePageViewModel}}" Height="25" Source="/CityOrganisations;component/Images/Point.png">
-                            <Image.RenderTransform>
-                                <TranslateTransform 
-                                    X="{Binding X, Mode=TwoWay}" 
-                                    Y="{Binding Y, Mode=TwoWay}" />
-                            </Image.RenderTransform>
-                        </Image>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <Canvas Height="818" Width="1387" LayoutTransform="{Binding Scale}">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="PreviewMouseWheel">
+                        <b:InvokeCommandAction Command="{Binding MouseWheelCommand}" PassEventArgsToCommand="True" />
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="MouseRightButtonUp">
+                        <b:InvokeCommandAction Command="{Binding MouseRightButtonCommand}" PassEventArgsToCommand="True" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+                <Image Source="../Images/CityMap.png" Height="818" Width="1387" />
+                <ItemsControl ItemsSource="{Binding Points}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Image Width="{Binding ImageSize, RelativeSource={RelativeSource AncestorType=viewModels:HomePageViewModel}}" Height="25" Source="/CityOrganisations;component/Images/Point.png">
+                                <Image.RenderTransform>
+                                    <TranslateTransform 
+                                        X="{Binding X, Mode=TwoWay}" 
+                                        Y="{Binding Y, Mode=TwoWay}" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Canvas>
         </ScrollViewer>
 
         <customControls:RightPanelControl Grid.Column="1" PanelTitle="Филиалы города" />
