@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using CityOrganisations.Dialogs;
 using Prism.Commands;
 
 namespace CityOrganisations.ViewModels
@@ -28,8 +29,20 @@ namespace CityOrganisations.ViewModels
         public ICommand ScrollViewerLoadedCommand { get; }
         public ICommand ScrollViewerSizeChangedCommand { get; }
         public ICommand MouseRightButtonCommand { get; }
+        public ICommand MouseLeftButtonCommand { get; }
 
         public ScaleTransform Scale => _scale;
+        
+        public bool IsOpenPopup
+        {
+            get => _isOpenPopup;
+            set => SetProperty(ref _isOpenPopup, value);
+        }
+
+        public ICommand CloseDialogCommand { get; }
+        public ICommand CanvasLoadedCommand { get; }
+
+        private bool _isOpenPopup;
 
         private float _imageSize = 25;
     
@@ -38,6 +51,7 @@ namespace CityOrganisations.ViewModels
         private double _minScale = 1f;
 
         private ScrollViewer _scrollViewer;
+        private Canvas _canvas;
         private Dictionary<BranchModel, PointModel> _points = new();
 
         public HomePageViewModel(IDatabaseService<BranchModel> databaseService, IDialogService dialogService, IEventAggregator eventAggregator) :
@@ -46,7 +60,13 @@ namespace CityOrganisations.ViewModels
             MouseWheelCommand = new DelegateCommand<MouseWheelEventArgs>(OnMouseWheel);
             ScrollViewerLoadedCommand = new DelegateCommand<object>(OnScrollViewLoaded);
             ScrollViewerSizeChangedCommand = new DelegateCommand<object>(OnSizeChanged);
+
+            CanvasLoadedCommand = new DelegateCommand<object>(OnCanvasLoaded);
+            
             MouseRightButtonCommand = new DelegateCommand<MouseButtonEventArgs>(OnMouseRightClick);
+            MouseLeftButtonCommand = new DelegateCommand<MouseButtonEventArgs>(OnMouseLeftClick);
+
+            CloseDialogCommand = new DelegateCommand(CloseDialog);
             
             InitializePoints();
             
@@ -87,8 +107,14 @@ namespace CityOrganisations.ViewModels
         private void OnScrollViewLoaded(object sender)
         {
             if (sender is ScrollViewer scrollViewer)
-            {
                 _scrollViewer = scrollViewer;
+        }
+
+        private void OnCanvasLoaded(object sender)
+        {
+            if (sender is Canvas canvas)
+            {
+                _canvas = canvas;
                 UpdateScaleValues();
             }
         }
@@ -100,13 +126,10 @@ namespace CityOrganisations.ViewModels
 
         private void UpdateScaleValues()
         {
-            if (_scrollViewer.Content is Canvas canvas)
-            {
-                double scale = _scrollViewer.ActualHeight / canvas.ActualHeight;
-                _minScale = scale;
-                
-                ChangeScale(Scale.ScaleX);
-            }
+            double scale = _scrollViewer.ActualHeight / _canvas.ActualHeight;
+            _minScale = scale;
+            
+            ChangeScale(Scale.ScaleX);
         }
 
         private void ChangeScale(double newScale)
@@ -132,10 +155,28 @@ namespace CityOrganisations.ViewModels
             
             e.Handled = true;
         }
+
+
+        private void OnMouseLeftClick(MouseButtonEventArgs e)
+        {
+            Point position = e.GetPosition(e.Source as IInputElement);
+            PointModel selectedPoint = FindPointNearPosition(position);
+            
+            if (selectedPoint != null)
+            {
+                SelectedItem = _points.First(x => x.Value == selectedPoint).Key;
+                IsOpenPopup = true;
+            }
+        }
+
+        private void CloseDialog()
+        {
+            IsOpenPopup = false;
+        }
         
         private void OnMouseRightClick(MouseButtonEventArgs e)
         {
-            PointModel position = CalculatePosition(e.GetPosition(e.Source as IInputElement));
+            Point position = e.GetPosition(e.Source as IInputElement);
             ContextMenu contextMenu = new ContextMenu();
 
             if (!_points.ContainsKey(Items[SelectedIndex]))
@@ -143,7 +184,7 @@ namespace CityOrganisations.ViewModels
                 MenuItem addItem = new MenuItem { Header = "Добавить" };
                 addItem.Click += (_, _) =>
                 {
-                    AddPoint(position);
+                    AddPoint(CalculatePosition(position));
                 };
 
                 contextMenu.Items.Add(addItem);
@@ -171,19 +212,19 @@ namespace CityOrganisations.ViewModels
 
         private PointModel CalculatePosition(Point mousePosition)
         {
-            float finalX = (float) (mousePosition.X );
-            float finalY = (float) (mousePosition.Y );
+            float finalX = (float) (mousePosition.X - _imageSize / 2);
+            float finalY = (float) (mousePosition.Y - _imageSize);
 
-            return new PointModel(finalX, finalY, 1);
+            return new PointModel(finalX, finalY);
         }
         
-        private PointModel FindPointNearPosition(PointModel position)
+        private PointModel FindPointNearPosition(Point position)
         {
             foreach (var point in Points)
             {
-                double distance = Math.Sqrt(Math.Pow(point.X - position.X, 2) + Math.Pow(point.Y - position.Y, 2));
+                double distance = Math.Pow(point.X - position.X, 2) + Math.Pow(point.Y - position.Y, 2);
 
-                if (distance <= _imageSize)
+                if (distance <= _imageSize * _imageSize * 1.3f)
                     return point;
             }
 
@@ -206,7 +247,7 @@ namespace CityOrganisations.ViewModels
         
         private void RestorePoint(BranchModel model)
         {
-            AddPoint(new PointModel(model.XPos, model.YPos, 1), model);
+            AddPoint(new PointModel(model.XPos, model.YPos), model);
         }
 
         private void AddPoint(PointModel pointModel, BranchModel branchModel)

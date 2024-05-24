@@ -2,7 +2,6 @@
 {
     public class ConfirmationDialogViewModel : BaseDialog
     {
-
         public ConfirmationDialogViewModel()
         {
             Title = "Подтверждение";

@@ -28,22 +28,10 @@ namespace CityOrganisations.Models
         private float _x;
         private float _y;
         
-        private float _originalX;
-        private float _originalY;
-
-        public PointModel(float x, float y, float scale = 1)
+        public PointModel(float x, float y)
         {
             X = x;
             Y = y;
-            
-            _originalX = X / scale;
-            _originalY = Y / scale;
-        }
-
-        public void ChangeScale(float scale)
-        {
-            X = _originalX * scale;
-            Y = _originalY * scale;
         }
         
         public event PropertyChangedEventHandler? PropertyChanged;

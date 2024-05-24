@@ -22,7 +22,7 @@
                 
                 <StackPanel Grid.Row="0" Orientation="Vertical">
                     <TextBlock Text="{Binding PanelTitle, ElementName=Root}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
-                    <Grid>
+                    <!--<Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -43,7 +43,7 @@
                                 </StackPanel>
                             </Border>
                         </Popup>
-                    </Grid>
+                    </Grid>-->
                 </StackPanel>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ListBox x:Name="ListBox"
