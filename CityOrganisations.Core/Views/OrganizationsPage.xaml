@@ -1,0 +1,32 @@
+﻿<Page x:Class="CityOrganisations.Views.OrganizationsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:customControls="clr-namespace:CityOrganisations.CustomControls;assembly=CityOrganisations.Common"
+      xmlns:customInformationControl="clr-namespace:CityOrganisations.CustomControls.CustomInformationControl;assembly=CityOrganisations.Common"
+      mc:Ignorable="d"
+      Title="OrganizationsPage" Height="auto" Width="auto">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <customControls:EditPanelControl HeaderLabel="{Binding SelectedItem.Name}"
+                                             AddClickCommand="{Binding AddClickCommand}"
+                                             EditClickCommand="{Binding EditClickCommand}"
+                                             SaveClickCommand="{Binding SaveClickCommand}"
+                                             CancelClickCommand="{Binding CancelClickCommand}">
+            <customControls:EditPanelControl.InfoContent>
+                <ItemsControl ItemsSource="{Binding Path=SelectedItem}" HorizontalContentAlignment="Stretch">
+                    <customInformationControl:InformControl Label="Название" BoxText="{Binding SelectedItem.Name}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="Юридический адрес" BoxText="{Binding SelectedItem.LegalAddress}"></customInformationControl:InformControl>
+                    <customInformationControl:InformControl Label="ИНН" BoxText="{Binding SelectedItem.TaxId}"></customInformationControl:InformControl>
+                </ItemsControl>
+            </customControls:EditPanelControl.InfoContent>
+        </customControls:EditPanelControl>
+        
+        <customControls:RightPanelControl Grid.Column="1" PanelTitle="Организации города" />
+    </Grid>
+</Page>

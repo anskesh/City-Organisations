@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="CityOrganisations.CustomControls.RightPanelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             x:Name="Root"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             mvvm:ViewModelLocator.AutoWireViewModel="True"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Border BorderBrush="Black" BorderThickness="1" Width="270" Margin="10" HorizontalAlignment="Right">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock Text="{Binding PanelTitle, ElementName=Root}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                </StackPanel>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ListBox x:Name="ListBox"
+                             ItemsSource="{Binding DataContext.Items, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" 
+                             IsHitTestVisible="{Binding DataContext.Selectable, RelativeSource={RelativeSource AncestorType={x:Type Page}}}"
+                             SelectedIndex="{Binding DataContext.SelectedIndex, RelativeSource={RelativeSource AncestorType={x:Type Page}}}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <mvvm:InvokeCommandAction Command="{Binding DataContext.SelectedItemCommand, RelativeSource={RelativeSource AncestorType={x:Type Page}}}" 
+                                                          CommandParameter="{Binding Path=SelectedIndex, ElementName=ListBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource CustomListBoxItem}"/>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+</UserControl>
